@@ -1,0 +1,34 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col">
+            <div class="card card-body">
+                <h4 class="card-title">{{ title }}</h4>
+                <form method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form-group">
+                        <label>{{field.label}}*</label>
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+
+                    {% if messages %}
+                    {% for msg in messages %}
+                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                    <div class="alert alert-danger">{{ msg }}</div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+                    <input type="submit" class="btn btn-primary btn-block" value="{{btn}}" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/forms.js' %}"></script>
+{% endblock %}

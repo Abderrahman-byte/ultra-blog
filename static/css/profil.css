@@ -1,0 +1,13 @@
+.profil_pic {
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.alert-v {
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 1.8rem;
+    letter-spacing: 5px;
+}

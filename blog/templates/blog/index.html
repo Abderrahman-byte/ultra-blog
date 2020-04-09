@@ -1,0 +1,97 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<div class="index__hero">
+    <h3 class="hero__title">Welcome To The World Of The Knowlege.</h3>
+    <p class="hero__subtitle">The only way to get smarter.</p>
+</div>
+
+<div class="container my-3">
+    {% if recomended %}
+    <h2 class="text-center mb-5 display-4">Recommandations</h2>
+    <div class="row justify-content-center mb-5">
+        {% for article in recomended %}
+        <div class="col-lg-8 col-12 my-2">
+            <div class="card card-body bg-dark">
+                <div class="media text-white">
+                    <img src="/media/{{ article.author.profil.profil_pic }}" class="mr-3 profil_pic" alt="author profil">
+                    <div class="media-body">
+                        <h5 class="mt-0">{{ article.title }}</h5>
+                        <p class="m-0">by <a href="{% url 'blog:user_profil' article.author.id %} ">@{{ article.author }} </a></p>
+                        <small>{{ article.date_updated }}</small>
+                        <p class="my-3">{{ article.overview }}</p>
+                        <p class="my-3"><strong>{{ article.get_tags }}</strong>  </p>
+                        <div>
+                            <a href="{% url 'blog:article_details' article.id %}" class="btn btn-primary">View</a>
+                            {% if request.user == article.author %}
+                            <a href="{% url 'blog:update_article' article.id %} " class="btn btn-info">Update</a>
+                            <a href="{% url 'blog:delete_article' article.id %} " class="btn btn-danger">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <hr>
+    {% endif %}
+    
+    <h2 class="text-center mb-5 display-4">Trending</h2>
+    <div class="row justify-content-center mb-5">
+        {% for article in trends %}
+        <div class="col-lg-8 col-12 my-2">
+            <div class="card card-body bg-dark">
+                <div class="media text-white">
+                    <img src="/media/{{ article.author.profil.profil_pic }}" class="mr-3 profil_pic" alt="author profil">
+                    <div class="media-body">
+                        <h5 class="mt-0">{{ article.title }}</h5>
+                        <p class="m-0">by <a href="{% url 'blog:user_profil' article.author.id %} ">@{{ article.author }} </a></p>
+                        <small>{{ article.date_updated }}</small>
+                        <p class="my-3">{{ article.overview }}</p>
+                        <p class="my-3"><strong>{{ article.get_tags }}</strong>  </p>
+                        <div>
+                            <a href="{% url 'blog:article_details' article.id %}" class="btn btn-primary">View</a>
+                            {% if request.user == article.author %}
+                            <a href="{% url 'blog:update_article' article.id %} " class="btn btn-info">Update</a>
+                            <a href="{% url 'blog:delete_article' article.id %} " class="btn btn-danger">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <hr>
+
+    <h2 class="text-center mb-5 display-4">Latest Articles</h2>
+    <div class="row justify-content-center mb-5">
+        {% for article in latest %}
+        <div class="col-lg-8 col-12 my-2">
+            <div class="card card-body bg-dark">
+                <div class="media text-white">
+                    <img src="/media/{{ article.author.profil.profil_pic }}" class="mr-3 profil_pic" alt="author profil">
+                    <div class="media-body">
+                        <h5 class="mt-0">{{ article.title }}</h5>
+                        <p class="m-0">by <a href="{% url 'blog:user_profil' article.author.id %} ">@{{ article.author }} </a></p>
+                        <small>{{ article.date_updated }}</small>
+                        <p class="my-3">{{ article.overview }}</p>
+                        <p class="my-3"><strong>{{ article.get_tags }}</strong>  </p>
+                        <div>
+                            <a href="{% url 'blog:article_details' article.id %}" class="btn btn-primary">View</a>
+                            {% if request.user == article.author %}
+                            <a href="{% url 'blog:update_article' article.id %} " class="btn btn-info">Update</a>
+                            <a href="{% url 'blog:delete_article' article.id %} " class="btn btn-danger">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

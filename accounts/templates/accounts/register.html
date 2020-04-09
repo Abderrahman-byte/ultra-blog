@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ugly face | login</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row py-3">
+            <div class="col-lg-5 col-md-7 mx-auto">
+                <div class="card card-body">
+                    <h3 class="card-title text-center">Login To Ugly Face Blog</h3>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="form-group">
+                            <label>{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                        {% endfor %}
+
+                        {% for message in messages %}
+                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <div class="alert alert-danger">{{ message }}</div>
+                        {% endif %}
+                        {% endfor %}
+
+                        
+                        <input type="submit" value="Register" class="btn btn-primary btn-block" >
+                    </form>
+                    <hr>
+                    <a class="btn btn-block btn-secondary" href="{% url 'auth:login' %}">Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/forms.js' %}"></script>
+</body>
+</html>

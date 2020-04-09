@@ -1,0 +1,48 @@
+.tag-div {
+    color: whitesmoke;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5em 1.5em;
+    background-color: royalblue;
+}
+
+.tag-div > p {
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.tag-div.selected > p {
+    text-decoration: underline whitesmoke;
+}
+
+.tag-div.selected {
+    box-sizing: content-box;
+    background-color: rgb(255, 35, 35);
+}
+
+.desc p {
+    display: flex;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.desc p .clr-red {
+    display: block;
+    border-radius: 1px;
+    width: 20px;
+    height: 20px;
+    background-color: rgb(255, 35, 35);
+    margin-right : 5px;
+}
+
+.desc p .clr-blue {
+    display: block;
+    border-radius: 1px;
+    width: 20px;
+    height: 20px;
+    background-color: royalblue;
+    margin-right : 5px;
+}

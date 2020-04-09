@@ -1,0 +1,76 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+{% block content %}
+<style>
+    .profil_pic {
+        object-fit: cover;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+    }
+</style>
+<div class="container py-5">
+    <h4 class="display-3">Search for "{{ query }}" :</h4>
+    {% if user|length == 0 and articles|length == 0 %}
+    <hr>
+    <div class="row">
+        <div class="col-12 alert alert-secondary">
+            <p class="text-center h2">No Results For '{{ query }}'</p>    
+        </div>
+        <a href="{% url 'blog:index' %}" class="btn btn-warning btn-block">Go Back home</a>  
+    </div>
+    
+    {% endif %}
+
+    {% if users|length > 0 %}
+    <hr>
+    <h5 class="display-4">Authors :</h5>
+    <div class="row">
+        {% for user in users %}
+        <div class="col-3">
+            <div class="card">
+                <img src="/media/{{ user.profil.profil_pic }}/" class="img-fluid" />
+                <div class="card-body">
+                    <h5 class="card-title">@{{ user.username }}</h5>
+                    <p>{{ user.first_name }} {{ user.last_name }}</p>
+                    <p>{{ user.article_set.all.count }} articles</p>
+                    <a href="{% url 'blog:user_profil' user.id %}" class="btn btn-info">View Profil</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if articles|length > 0 %}
+    <hr>
+    <h5 class="display-4">Articles :</h5>
+    {% for article in articles %}
+    <div class="row mb-5">
+    <div class="col-8">
+        <div class="card card-body bg-dark">
+            <div class="media text-white">
+                <img src="/media/{{ article.author.profil.profil_pic }}" class="mr-3 profil_pic" alt="author profil">
+                <div class="media-body">
+                    <h5 class="mt-0">{{ article.title }}</h5>
+                    <p class="m-0">by @<a href="{% url 'blog:user_profil' article.author.id %} ">{{ article.author }} </a></p>
+                    <small>{{ article.date_updated }}</small>
+                    <p class="my-3">{{ article.overview }}</p>
+                    <p class="my-3"><strong>{{ article.get_tags }}</strong>  </p>
+                    <div>
+                        <a href="{% url 'blog:article_details' article.id %}" class="btn btn-primary">View</a>
+                        {% if request.user == article.author %}
+                        <a href="{% url 'blog:update_article' article.id %} " class="btn btn-info">Update</a>
+                        <a href="{% url 'blog:delete_article' article.id %} " class="btn btn-danger">Delete</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
